@@ -6,6 +6,39 @@ import (
 	"strings"
 )
 
+func main() {
+	currX := 0
+	currY := 0
+
+	for _, line := range strings.Split(strings.TrimSpace(input), "\n") {
+		tokens := strings.Split(line, " ")
+
+		if len(tokens) != 2 {
+			log.Fatal("bad input")
+		}
+
+		command := tokens[0]
+		unit, _ := strconv.Atoi(tokens[1])
+
+		switch command {
+		case "up":
+			currX -= unit
+		case "down":
+			currX += unit
+		case "forward":
+			currY += unit
+		default:
+			log.Fatal("bad input")
+		}
+
+		if currX < 0 {
+			currX = 0
+		}
+	}
+
+	log.Println(currX * currY)
+}
+
 const input = `
 forward 1
 down 9
@@ -1008,36 +1041,3 @@ forward 7
 forward 5
 forward 5
 `
-
-func main() {
-	currX := 0
-	currY := 0
-
-	for _, line := range strings.Split(strings.TrimSpace(input), "\n") {
-		tokens := strings.Split(line, " ")
-
-		if len(tokens) != 2 {
-			log.Fatal("bad input")
-		}
-
-		command := tokens[0]
-		unit, _ := strconv.Atoi(tokens[1])
-
-		switch command {
-		case "up":
-			currX -= unit
-		case "down":
-			currX += unit
-		case "forward":
-			currY += unit
-		default:
-			log.Fatal("bad input")
-		}
-
-		if currX < 0 {
-			currX = 0
-		}
-	}
-
-	log.Println(currX * currY)
-}
