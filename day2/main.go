@@ -7,8 +7,9 @@ import (
 )
 
 func main() {
-	currX := 0
-	currY := 0
+	currAim := 0
+	currDepth := 0
+	currHorizontal := 0
 
 	for _, line := range strings.Split(strings.TrimSpace(input), "\n") {
 		tokens := strings.Split(line, " ")
@@ -22,22 +23,32 @@ func main() {
 
 		switch command {
 		case "up":
-			currX -= unit
+			currAim -= unit
 		case "down":
-			currX += unit
+			currAim += unit
 		case "forward":
-			currY += unit
+			currHorizontal += unit
+			currDepth += currAim * unit
 		default:
 			log.Fatal("bad input")
 		}
 
-		if currX < 0 {
-			currX = 0
+		if currDepth < 0 {
+			currDepth = 0
 		}
 	}
 
-	log.Println(currX * currY)
+	log.Println(currDepth * currHorizontal)
 }
+
+const inputTest = `
+forward 5
+down 5
+forward 8
+up 3
+down 8
+forward 2
+`
 
 const input = `
 forward 1
